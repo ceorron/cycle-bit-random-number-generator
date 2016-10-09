@@ -2,9 +2,9 @@
 
 rcb-generator is a new kind of psuedo random number generator. rcb-generator is a bit pattern generator made to be fast, scalable, high quality psuedo random number generator.
 
-rcb-generator is provided as c++ source file (single header file).
+rcb-generator is provided as a C++ source file (single header file).
 
-MIT Licence - See Source/Licence file
+MIT Licence - See Source/License file
 
 # How to use
 
