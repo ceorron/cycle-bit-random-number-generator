@@ -33,7 +33,6 @@ template<typename T,
 		 unsigned int bit_pos_start = bit_pos_left * 2>
 class rcb_generator {
 private:
-	//all of the variables
 	T val;
 	T last;
 	T cnt = 1;
@@ -85,11 +84,9 @@ private:
 public:
 	rcb_generator(T rnd) : val(rnd), last(~rnd) {}
 	inline T rand() {
-		//only allow negative numbers for multiply
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		if(tmp_cnt % 2 != 0) --tmp_cnt;
-		//the final generated number
 		return val = (generate() ^ (generate() * (generate() * tmp_cnt)));
 	}
 };
