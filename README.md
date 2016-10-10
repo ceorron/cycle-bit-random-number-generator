@@ -53,7 +53,7 @@ To change the bit size of the data stored in and returned from the C code for rc
 
 # more on rcb-generator design
 
-rcb-generator provides fast, scalable, random number generation with a very good period (2^bit-length guaranteed).
+rcb-generator provides fast, scalable, random number generation with a very good period (2^bit-length minimum).
 
 rcb-generator is very fast; slower than many shift/modulo generators but about twice as fast (or more) than Mersenne Twister in my tests.
 
