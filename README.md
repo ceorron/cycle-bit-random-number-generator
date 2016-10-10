@@ -1,4 +1,4 @@
-# cycle bit scalable psuedo random number generator (rcb_generator)
+# cycle bit scalable psuedo random number generator (rcb-generator)
 
 rcb-generator is a new kind of psuedo random number generator. rcb-generator is a bit pattern generator made to be fast, scalable, high quality psuedo random number generator.
 
@@ -29,7 +29,7 @@ int main() {
 }
 ```
 
-# more on rcb_generator design
+# more on rcb-generator design
 
 rcb-generator provides a fast, scalable, random number generation with a very good period (2^bit-length guaranteed).
 

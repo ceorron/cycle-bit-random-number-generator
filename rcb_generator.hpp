@@ -86,7 +86,7 @@ public:
 	rcb_generator(T rnd) : val(rnd), last(~rnd) {}
 	inline T rand() {
 		//only allow negative numbers for multiply
-		T tmp_cnt = ++cnt;
+		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		if(tmp_cnt % 2 != 0) --tmp_cnt;
 		//the final generated number
