@@ -36,7 +36,7 @@ private:
 	T val;
 	T last;
 	T cnt = 1;
-	//only first two flags used (1 << 0) is "left" (1 << 1) is start
+	//only first two flags used (1 << 1) is "left" (1 << 0) is start
 	char flags = 0;
 	template<typename U>
 	static inline bool get_bit(U val, unsigned pos) {

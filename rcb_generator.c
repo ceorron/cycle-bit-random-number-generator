@@ -57,8 +57,8 @@ RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
 }
 RCG_T_TYPE rcb_generate(rcb_gen* gen) {
 	//set the flags left and start bit
-	char left = (get_bit_val(gen->val, RCG_BIT_POS_LEFT) ^ get_bit_char(gen->flags, 1)) != 0;
-	char start_bit = (get_bit_val(gen->val, RCG_BIT_POS_START) ^ get_bit_char(gen->flags, 0)) != 0;
+	char left = get_bit_val(gen->val, RCG_BIT_POS_LEFT) ^ get_bit_char(gen->flags, 1);
+	char start_bit = get_bit_val(gen->val, RCG_BIT_POS_START) ^ get_bit_char(gen->flags, 0);
 	gen->flags = set_bit_char(gen->flags, 1, left);
 	gen->flags = set_bit_char(gen->flags, 0, start_bit);
 
