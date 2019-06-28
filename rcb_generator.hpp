@@ -27,6 +27,17 @@
 
 namespace rcbg {
 
+template<typename U>
+inline bool get_bit(U val, unsigned pos) {
+	return val & ((U)1 << pos);
+}
+template<typename U>
+inline U set_bit(U val, unsigned pos, bool to) {
+	if(to)
+		return val | ((U)1 << pos);
+	return val & ~((U)1 << pos);
+}
+
 //the random cycle bit generator - random number generator
 template<typename T,
 		 unsigned int bit_pos_left = ((sizeof(T) * 8) / 3) + 1,
@@ -38,16 +49,6 @@ private:
 	T cnt = 1;
 	//only first two flags used (1 << 1) is "left" (1 << 0) is start
 	char flags = 0;
-	template<typename U>
-	static inline bool get_bit(U val, unsigned pos) {
-		return val & (1 << pos);
-	}
-	template<typename U>
-	static inline T set_bit(U val, unsigned pos, bool to) {
-		if(to)
-			return val | (1 << pos);
-		return val & ~(1 << pos);
-	}
 	static T shift_transform(T val, int i, bool& start_bit) {
 		bool crnt = val & (1 << i);
 		if ((crnt && start_bit == false) || (!crnt && start_bit == true)) {
