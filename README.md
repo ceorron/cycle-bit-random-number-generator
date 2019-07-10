@@ -57,7 +57,7 @@ rcb-generator provides fast, scalable, random number generation with a very good
 
 rcb-generator is very fast; slower than many shift/modulo generators but about twice as fast (or more) than Mersenne Twister in my tests.
 
-Because rcb-generator operates on a bit pattern not on a value this makes the generator highly scalable and reusable, unlike other shift/modulo generators/MT and random number generators in general.
+Because rcb-generator operates on a bit pattern, not on a value, this makes the generator highly scalable and reusable, unlike other shift/modulo generators/MT and random number generators in general.
 
 Please use and let me know what you think.
 
