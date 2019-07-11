@@ -17,15 +17,15 @@ MIT Licence - See Source/License file
 using namespace std;
 
 int main() {
-	//seed the random number generator with the system clock
-	rcbg::rcb_generator<unsigned> rnd(time(NULL));
-	
-	//get a random number
-	unsigned random_number = rnd.rand();
-	
-	//print it
-	cout << "random number generated : " << random_number << endl;
-	return 0;
+    //seed the random number generator with the system clock
+    rcbg::rcb_generator<unsigned> rnd(time(NULL));
+    
+    //get a random number
+    unsigned random_number = rnd.rand();
+    
+    //print it
+    cout << "random number generated : " << random_number << endl;
+    return 0;
 }
 ```
 
@@ -36,16 +36,16 @@ int main() {
 #include "rcb_generator.h"
 
 int main() {
-	/* seed the random number generator with the system clock */
-	rcb_gen rnd;
-	rcb_init(&rnd, time(NULL));
+    /* seed the random number generator with the system clock */
+    rcb_gen rnd;
+    rcb_init(&rnd, time(NULL));
 
-	/* get a random number */
-	unsigned random_number = rcb_rand(&rnd);
+    /* get a random number */
+    unsigned random_number = rcb_rand(&rnd);
 
-	/* print it */
-	printf("random number generated : %u", random_number);
-	return 0;
+    /* print it */
+    printf("random number generated : %u", random_number);
+    return 0;
 }
 ```
 
