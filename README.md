@@ -19,10 +19,10 @@ using namespace std;
 int main() {
     //seed the random number generator with the system clock
     rcbg::rcb_generator<unsigned> rnd(time(NULL));
-    
+
     //get a random number
     unsigned random_number = rnd.rand();
-    
+
     //print it
     cout << "random number generated : " << random_number << endl;
     return 0;
