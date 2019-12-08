@@ -51,11 +51,11 @@ private:
 	char flags = 0;
 	static T shift_transform(T val, int i, bool& start_bit) {
 		bool crnt = val & (1 << i);
-		if ((crnt && start_bit == false) || (!crnt && start_bit == true)) {
-			val = val | (1 << i);
+		if((crnt & !start_bit) | (!crnt & start_bit)) {
+			val |= (1 << i);
 			start_bit = !start_bit;
 		} else
-			val = val & ~(1 << i);
+			val &= ~(1 << i);
 		return val;
 	}
 	static T generate(T val, bool left, bool start_bit) {
