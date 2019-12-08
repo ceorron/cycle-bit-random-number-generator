@@ -39,11 +39,11 @@ char get_bit_val(RCG_T_TYPE val, unsigned pos) {
 }
 RCG_T_TYPE shift_transform(RCG_T_TYPE val, int i, char* start_bit) {
 	char crnt = (val & (1 << i)) != 0;
-	if ((crnt && *start_bit == 0) || (!crnt && *start_bit == 1)) {
-		val = val | (1 << i);
+	if((crnt & *start_bit == 0) | (!crnt & *start_bit == 1)) {
+		val |= (1 << i);
 		*start_bit = !*start_bit;
 	} else
-		val = val & ~(1 << i);
+		val &= ~(1 << i);
 	return val;
 }
 RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
