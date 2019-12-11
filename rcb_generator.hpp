@@ -88,7 +88,7 @@ public:
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		if(tmp_cnt % 2 != 0) --tmp_cnt;
-		return val = (generate() ^ (generate() * (generate() * tmp_cnt)));
+		return val = (generate() ^ ((generate() << 1) * ((generate() << 1) * tmp_cnt)));
 	}
 };
 
