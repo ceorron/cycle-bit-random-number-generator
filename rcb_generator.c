@@ -39,7 +39,7 @@ char get_bit_val(RCG_T_TYPE val, unsigned pos) {
 }
 RCG_T_TYPE shift_transform(RCG_T_TYPE val, int i, char* start_bit) {
 	char crnt = (val & (1 << i)) != 0;
-	if((crnt & *start_bit == 0) | (!crnt & *start_bit == 1)) {
+	if((crnt & (*start_bit == 0)) | (!crnt & (*start_bit == 1))) {
 		val |= (1 << i);
 		*start_bit = !*start_bit;
 	} else
