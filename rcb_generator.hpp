@@ -33,9 +33,7 @@ inline bool get_bit(U val, unsigned pos) {
 }
 template<typename U>
 inline U set_bit(U val, unsigned pos, bool to) {
-	if(to)
-		return val | ((U)1 << pos);
-	return val & ~((U)1 << pos);
+	return (val & ~((U)1 << pos)) | ((U)to << pos);
 }
 
 //the random cycle bit generator - random number generator
@@ -51,11 +49,9 @@ private:
 	char flags = 0;
 	static T shift_transform(T val, int i, bool& start_bit) {
 		bool crnt = val & (1 << i);
-		if((crnt & !start_bit) | (!crnt & start_bit)) {
-			val |= (1 << i);
-			start_bit = !start_bit;
-		} else
-			val &= ~(1 << i);
+		bool on = (crnt & (!start_bit)) | ((!crnt) & start_bit);
+		val = set_bit(val, i, on);
+		start_bit ^= on;
 		return val;
 	}
 	static T generate(T val, bool left, bool start_bit) {
