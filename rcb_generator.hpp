@@ -47,11 +47,9 @@ private:
 	T cnt = 1;
 	//only first two flags used (1 << 1) is "left" (1 << 0) is start
 	char flags = 0;
-	static T shift_transform(T val, int i, bool& start_bit) {
-		bool crnt = val & (1 << i);
-		bool on = (crnt & (!start_bit)) | ((!crnt) & start_bit);
-		val = set_bit(val, i, on);
-		start_bit ^= on;
+	inline static T shift_transform(T val, int i, bool& start_bit) {
+        val ^= (T)start_bit << i;
+		start_bit ^= get_bit(val, i);
 		return val;
 	}
 	static T generate(T val, bool left, bool start_bit) {
