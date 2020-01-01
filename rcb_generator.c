@@ -26,23 +26,21 @@
 
 #include "rcb_generator.h"
 
-char get_bit_char(char val, unsigned pos) {
+inline char get_bit_char(char val, unsigned pos) {
 	return (val & ((char)1 << pos)) != 0;
 }
-char set_bit_char(char val, unsigned pos, char to) {
+inline char set_bit_char(char val, unsigned pos, char to) {
 	return (val & ~((char)1 << pos)) | ((char)to << pos);
 }
-char get_bit_val(RCG_T_TYPE val, unsigned pos) {
+inline char get_bit_val(RCG_T_TYPE val, unsigned pos) {
 	return (val & ((RCG_T_TYPE)1 << pos)) != 0;
 }
-RCG_T_TYPE set_bit_val(RCG_T_TYPE val, unsigned pos, char to) {
+inline RCG_T_TYPE set_bit_val(RCG_T_TYPE val, unsigned pos, char to) {
 	return (val & ~((RCG_T_TYPE)1 << pos)) | ((RCG_T_TYPE)to << pos);
 }
-RCG_T_TYPE shift_transform(RCG_T_TYPE val, int i, char* start_bit) {
-	char crnt = (val & (1 << i)) != 0;
-	char on = (crnt & (!*start_bit)) | ((!crnt) & (*start_bit));
-	val = set_bit_val(val, i, on);
-	*start_bit ^= on;
+inline RCG_T_TYPE shift_transform(RCG_T_TYPE val, int i, char* start_bit) {
+	val ^= (T)*start_bit << i;
+	*start_bit ^= get_bit_val(val, i);
 	return val;
 }
 RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
