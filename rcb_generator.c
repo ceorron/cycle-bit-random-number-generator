@@ -39,7 +39,7 @@ inline RCG_T_TYPE set_bit_val(RCG_T_TYPE val, unsigned pos, char to) {
 	return (val & ~((RCG_T_TYPE)1 << pos)) | ((RCG_T_TYPE)to << pos);
 }
 inline RCG_T_TYPE shift_transform(RCG_T_TYPE val, int i, char* start_bit) {
-	val ^= (T)*start_bit << i;
+	val ^= (RCG_T_TYPE)*start_bit << i;
 	*start_bit ^= get_bit_val(val, i);
 	return val;
 }
