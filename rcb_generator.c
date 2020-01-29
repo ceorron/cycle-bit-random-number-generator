@@ -67,7 +67,15 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen) {
 
 	return gen->last;
 }
+void rcb_is_zero(rcb_gen* gen) {
+	//this could get trapped at zero, reinitialise if we do!!
+	if((gen->flags == 0) & (gen->val == 0) & (gen->last == 0)) {
+		gen->val = gen->cnt + 10;
+		gen->last = ~(gen->cnt - 10);
+	}
+}
 RCG_T_TYPE rcb_rand(rcb_gen* gen) {
+	rcb_is_zero(gen);
 	RCG_T_TYPE tmp_cnt = gen->cnt++;
 	if(gen->cnt == 0) ++gen->cnt;
 	if(tmp_cnt % 2 != 0) --tmp_cnt;
