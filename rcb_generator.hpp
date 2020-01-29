@@ -77,7 +77,7 @@ private:
 		return last;
 	}
 public:
-	rcb_generator(T rnd) : val(rnd), last(~rnd) {}
+	rcb_generator(T rnd) : val(rnd + 10), last(~(rnd - 10)) {}
 	inline T rand() {
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
