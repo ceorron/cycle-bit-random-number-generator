@@ -76,9 +76,17 @@ private:
 
 		return last;
 	}
+	void is_zero() {
+		//this could get trapped at zero, reinitialise if we do!!
+		if((flags == 0) & (val == 0) & (last == 0)) {
+			val = cnt + 10;
+			last = ~(cnt - 10);
+		}
+	}
 public:
 	rcb_generator(T rnd) : val(rnd + 10), last(~(rnd - 10)) {}
 	inline T rand() {
+		is_zero();
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		if(tmp_cnt % 2 != 0) --tmp_cnt;
