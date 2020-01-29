@@ -74,8 +74,8 @@ RCG_T_TYPE rcb_rand(rcb_gen* gen) {
 	return gen->val = (rcb_generate(gen) ^ ((rcb_generate(gen) << 1) * ((rcb_generate(gen) << 1) * tmp_cnt)));
 }
 void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd) {
-	gen->val = rnd;
-	gen->last = ~rnd;
+	gen->val = (rnd + 10);
+	gen->last = ~(rnd - 10);
 	gen->cnt = 1;
 	gen->flags = 0;
 }
