@@ -78,7 +78,7 @@ RCG_T_TYPE rcb_rand(rcb_gen* gen) {
 	rcb_is_zero(gen);
 	RCG_T_TYPE tmp_cnt = gen->cnt++;
 	if(gen->cnt == 0) ++gen->cnt;
-	if(tmp_cnt % 2 != 0) --tmp_cnt;
+	tmp_cnt &= ~(RCG_T_TYPE)1;
 	return gen->val = (rcb_generate(gen) ^ ((rcb_generate(gen) << 1) * ((rcb_generate(gen) << 1) * tmp_cnt)));
 }
 void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd) {
