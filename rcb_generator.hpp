@@ -63,8 +63,8 @@ private:
 	}
 	T generate() {
 		//set the flags left and start bit
-		bool left = (get_bit(val, bit_pos_left) ^ get_bit(flags, 1));
-		bool start_bit = (get_bit(val, bit_pos_start) ^ get_bit(flags, 0));
+		bool left = (get_bit(val, bit_pos_left) ^ get_bit(flags, 1) ^ true);
+		bool start_bit = (get_bit(val, bit_pos_start) ^ get_bit(flags, 0) ^ true);
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
@@ -76,17 +76,9 @@ private:
 
 		return last;
 	}
-	void is_zero() {
-		//this could get trapped at zero, reinitialise if we do!!
-		if((flags == 0) & (val == 0) & (last == 0)) {
-			val = cnt + 10;
-			last = ~(cnt - 10);
-		}
-	}
 public:
 	rcb_generator(T rnd) : val(rnd + 10), last(~(rnd - 10)) {}
 	inline T rand() {
-		is_zero();
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		tmp_cnt &= ~(T)1;
