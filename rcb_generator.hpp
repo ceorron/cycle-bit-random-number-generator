@@ -72,7 +72,7 @@ private:
 		T tfrm = generate(val, left, start_bit);
 
 		val = tfrm;
-		last = tfrm ^ tmpVal ^ last;
+		last = tfrm ^ tmpVal ^ ~last;
 
 		return last;
 	}
@@ -82,7 +82,7 @@ public:
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
 		tmp_cnt &= ~(T)1;
-		return val = (1 ^ generate() ^ ((generate() << 1) * ((generate() << 1) * tmp_cnt)));
+		return val = (generate() ^ ((generate() << 1) * ((generate() << 1) * tmp_cnt)));
 	}
 };
 
