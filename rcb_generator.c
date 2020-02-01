@@ -63,7 +63,7 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen) {
 	RCG_T_TYPE tfrm = generate(gen->val, left, start_bit);
 
 	gen->val = tfrm;
-	gen->last = tfrm ^ tmpVal ^ gen->last;
+	gen->last = tfrm ^ tmpVal ^ ~gen->last;
 
 	return gen->last;
 }
@@ -71,7 +71,7 @@ RCG_T_TYPE rcb_rand(rcb_gen* gen) {
 	RCG_T_TYPE tmp_cnt = gen->cnt++;
 	if(gen->cnt == 0) ++gen->cnt;
 	tmp_cnt &= ~(RCG_T_TYPE)1;
-	return gen->val = (1 ^ rcb_generate(gen) ^ ((rcb_generate(gen) << 1) * ((rcb_generate(gen) << 1) * tmp_cnt)));
+	return gen->val = (rcb_generate(gen) ^ ((rcb_generate(gen) << 1) * ((rcb_generate(gen) << 1) * tmp_cnt)));
 }
 void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd) {
 	gen->val = (rnd + 10);
