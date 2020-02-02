@@ -81,7 +81,7 @@ public:
 	inline T rand() {
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
-		return val = generate(val) ^ (((val = generate(val)) << 1) * (generate(tmp_cnt) << 1));
+		return val = (((val = generate(val)) << 1) * (generate(tmp_cnt) << 1)) ^ generate(val);
 	}
 };
 
