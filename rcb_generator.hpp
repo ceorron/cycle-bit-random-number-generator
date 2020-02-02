@@ -61,17 +61,17 @@ private:
 				val = shift_transform(val, i, start_bit);
 		return val;
 	}
-	T generate() {
+	T generate(T inval) {
 		//set the flags left and start bit
 		bool left = (get_bit(val, bit_pos_left) ^ get_bit(flags, 1) ^ true);
 		bool start_bit = (get_bit(val, bit_pos_start) ^ get_bit(flags, 0) ^ true);
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
-		T tmpVal = val;
-		T tfrm = generate(val, left, start_bit);
+		T tmpVal = inval;
+		T tfrm = generate(inval, left, start_bit);
 
-		val = tfrm;
+		inval = tfrm;
 		last = tfrm ^ tmpVal ^ ~last;
 
 		return last;
@@ -81,8 +81,7 @@ public:
 	inline T rand() {
 		T tmp_cnt = cnt++;
 		if(cnt == 0) ++cnt;
-		tmp_cnt &= ~(T)1;
-		return val = (generate() ^ ((generate() << 1) * ((generate() << 1) * tmp_cnt)));
+		return val = generate(val) ^ (((val = generate(val)) << 1) * (generate(tmp_cnt) << 1));
 	}
 };
 
