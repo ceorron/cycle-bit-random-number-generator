@@ -70,7 +70,7 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval) {
 RCG_T_TYPE rcb_rand(rcb_gen* gen) {
 	RCG_T_TYPE tmp_cnt = gen->cnt++;
 	if(gen->cnt == 0) ++gen->cnt;
-	return gen->val = rcb_generate(gen, gen->val) ^ (((gen->val = rcb_generate(gen, gen->val)) << 1) * (rcb_generate(gen, tmp_cnt) << 1));
+	return gen->val = (((gen->val = rcb_generate(gen, gen->val)) << 1) * (rcb_generate(gen, tmp_cnt) << 1)) ^ rcb_generate(gen, gen->val);
 }
 void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd) {
 	gen->val = (rnd + 10);
