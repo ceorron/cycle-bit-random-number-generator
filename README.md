@@ -68,9 +68,10 @@ aka
 
 Richard Cookman
 
-# sample output - first 500 numbers with T == uint32_t, seed == 0
+# sample output
+first 500 numbers with T == uint32_t, seed == 0
 
-```	[ 4294963667 ]
+```C	[ 4294963667 ]
 	[ 2133890565 ]
 	[ 425129385 ]
 	[ 1362748505 ]
@@ -569,4 +570,5 @@ Richard Cookman
 	[ 420967160 ]
 	[ 3347193648 ]
 	[ 3675638073 ]
-	[ 3046230717 ]```
+	[ 3046230717 ]
+```
