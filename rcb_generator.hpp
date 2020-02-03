@@ -71,7 +71,6 @@ private:
 		T tmpVal = inval;
 		T tfrm = generate(inval, left, start_bit);
 
-		inval = tfrm;
 		last = tfrm ^ tmpVal ^ ~last;
 
 		return last;
