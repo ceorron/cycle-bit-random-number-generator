@@ -59,12 +59,7 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval) {
 	gen->flags = set_bit_char(gen->flags, 1, left);
 	gen->flags = set_bit_char(gen->flags, 0, start_bit);
 
-	RCG_T_TYPE tmpVal = inval;
-	RCG_T_TYPE tfrm = generate(inval, left, start_bit);
-
-	gen->last = tfrm ^ tmpVal ^ ~gen->last;
-
-	return gen->last;
+	return gen->last = generate(inval, left, start_bit) ^ inval ^ ~gen->last;
 }
 RCG_T_TYPE rcb_rand(rcb_gen* gen) {
 	RCG_T_TYPE tmp_cnt = gen->cnt++;
