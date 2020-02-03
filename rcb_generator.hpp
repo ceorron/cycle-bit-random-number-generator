@@ -68,12 +68,7 @@ private:
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
-		T tmpVal = inval;
-		T tfrm = generate(inval, left, start_bit);
-
-		last = tfrm ^ tmpVal ^ ~last;
-
-		return last;
+		return last = generate(inval, left, start_bit) ^ inval ^ ~last;
 	}
 public:
 	rcb_generator(T rnd) : val(rnd + 10), last(~(rnd - 10)) {}
