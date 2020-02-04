@@ -66,7 +66,7 @@ The C++ version now has :
  - optional automatic reseed (off by default)
  - scalable internal count template variable
 
-If you are setting the scalable internal count template variable (CntN) the minimum period is 2<sup>8N</sup>. N being the number of bytes chosen. (NOTE the default uses the bit-length the same as the C code).
+If you are setting the scalable internal count template variable (CntN) the minimum period is 2<sup>8N</sup>. N being the number of bytes chosen. (NOTE the default uses N == sizeof(T), the same as the C code).
 
 If you set reseed == true on construction the maximum period is 2<sup>8N</sup>(3<sup>(8N + 2bit-length(T) + 2)</sup>). Minumum period is still 2<sup>8N</sup>.
 
