@@ -66,7 +66,7 @@ The C++ version now has :
  - optional automatic reseed (off by default)
  - scalable internal count variable
 
-This means that the two version will produce differnt values after the reseed point (if reseed enabled), and/or if a non default internal count variable size is used.
+This means that the two version will produce different values after the reseed point (if reseed enabled), and/or if a non default internal count variable size is used.
 
 Please use and let me know what you think.
 
