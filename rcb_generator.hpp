@@ -134,8 +134,11 @@ public:
 		if(tmp_cnt == 0) ++tmp_cnt;
 		T rtn = generate_outer(tmp_cnt);
 
-		if(!gd && reseeds())
-			seed(generate_outer(++tmp_cnt), generate_outer(++tmp_cnt) / 2, true);
+		if(!gd && reseeds()) {
+			T a = generate_outer(++tmp_cnt);
+			T b = generate_outer(++tmp_cnt) / 2;
+			seed(a, b, true);
+		}
 		return rtn;
 	}
 	bool good() {
