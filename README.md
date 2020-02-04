@@ -52,7 +52,7 @@ To change the bit size of the data stored in and returned from the C code for rc
 
 # more on rcb-generator design
 
-rcb-generator provides fast, scalable, random number generation with a very good period (2<sup>bit-length</sup> minimum).
+rcb-generator provides fast, scalable, random number generation with a very good period (2<sup>bit-length(T)</sup> minimum).
 
 rcb-generator is very fast; slower than many shift/modulo generators but about twice as fast (or more) than Mersenne Twister in my tests.
 
@@ -65,6 +65,10 @@ Note that there are differences between the C and C++ versions (as of Feb 2020).
 The C++ version now has :
  - optional automatic reseed (off by default)
  - scalable internal count variable
+
+If you are setting the scalable internal count template variable (CntN) the minimum period is 2<sup>8*N</sup>. N being the number of bytes chosen. (NOTE the default uses the bit-length the same as the C code).
+
+If you set reseed == true on construction the maximum period is 2<sup>8*N<sup>2(8*N + 2*bit-length(T) + 2)</sup></sup>
 
 This means that the two version will produce different values after the reseed point (if reseed enabled), and/or if a non default internal count variable size is used.
 
