@@ -63,10 +63,8 @@ Because rcb-generator operates on a bit pattern, not on a value, this makes the 
 Note that there are differences between the C and C++ versions (as of Feb 2020).
 
 The C++ version now has :
-
-optional automatic reseed (off by default)
-
-scalable internal count variable
+ - optional automatic reseed (off by default)
+ - scalable internal count variable
 
 This means that the two version will produce differnt values after the reseed point (if reseed enabled), and/or if a non default internal count variable size is used.
 
