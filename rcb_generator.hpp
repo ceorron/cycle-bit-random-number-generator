@@ -36,17 +36,62 @@ inline U set_bit(U val, unsigned pos, bool to) {
 	return (val & ~((U)1 << pos)) | ((U)to << pos);
 }
 
+template<unsigned int N>
+struct rcb_generator_count {
+private:
+	uint8_t dat[N];
+public:
+	rcb_generator_count() {
+		//init to zero
+		for(unsigned i = 0; i < N; ++i)
+			dat[i] = 0;
+	}
+	bool increment() {
+		//increment this
+		for(unsigned i = 0; i < N; ++i) {
+			if(dat[i] == std::numeric_limits<uint8_t>::max())
+				dat[i] = 0;
+			else {
+				++dat[i];
+				return true;
+			}
+		}
+		return false;
+	}
+	bool good() const {
+		//have we gone around the whole set of numbers
+		for(unsigned i = 0; i < N; ++i)
+			if(dat[i] != std::numeric_limits<uint8_t>::max())
+				return true;
+		return false;
+	}
+	template<typename T>
+	operator T() const {
+		//get the value of this
+		T rtn = 0;
+		unsigned j = 0;
+		for(unsigned i = 0; i < N; ++i) {
+			rtn ^= ((T)dat[i]) << (8 * j);
+			++j;
+			if(j == sizeof(T))
+				j = 0;
+		}
+		return rtn;
+	}
+};
+
 //the random cycle bit generator - random number generator
 template<typename T,
+		 unsigned int CntN = sizeof(T),
 		 unsigned int bit_pos_left = ((sizeof(T) * 8) / 3) + 1,
 		 unsigned int bit_pos_start = bit_pos_left * 2>
 class rcb_generator {
 private:
 	T val;
 	T last;
-	T cnt = 1;
+	rcb_generator_count<CntN> cnt;
 	//only first two flags used (1 << 1) is "left" (1 << 0) is start
-	char flags = 0;
+	char flags;
 	inline static T shift_transform(T val, int i, bool& start_bit) {
         val ^= (T)start_bit << i;
 		start_bit ^= get_bit(val, i);
@@ -70,12 +115,34 @@ private:
 
 		return last = generate(inval, left, start_bit) ^ inval ^ ~last;
 	}
-public:
-	rcb_generator(T rnd) : val(rnd + 10), last(~(rnd - 10)) {}
-	inline T rand() {
-		T tmp_cnt = cnt++;
-		if(cnt == 0) ++cnt;
+	T generate_outer(T tmp_cnt) {
 		return val = (((val = generate(val)) << 1) * (generate(tmp_cnt) << 1)) ^ generate(val);
+	}
+	void seed(T rnd, T offset, bool reseed) {
+		flags = 0;
+		val = rnd + offset;
+		last = ~(rnd - offset);
+		set_bit(flags, 2, reseed);
+	}
+public:
+	rcb_generator(T rnd, bool reseed = false) {
+		seed(rnd, 10, reseed);
+	}
+	T rand() {
+		bool gd = cnt.increment();
+		T tmp_cnt = cnt;
+		if(tmp_cnt == 0) ++tmp_cnt;
+		T rtn = generate_outer(tmp_cnt);
+
+		if(!gd && reseeds())
+			seed(generate_outer(++tmp_cnt), generate_outer(++tmp_cnt) / 2, true);
+		return rtn;
+	}
+	bool good() {
+		return cnt.good();
+	}
+	bool reseeds() const {
+		return get_bit(flags, 2);
 	}
 };
 
