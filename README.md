@@ -5,7 +5,6 @@ rcb-generator is a new kind of psuedo random number generator. rcb-generator is 
 rcb-generator is provided as a C++ source file (single header file) or C source and header files.
 
 MIT Licence - See Source/License file
-v
 
 ```C++
 #include <iostream>
