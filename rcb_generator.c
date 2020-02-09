@@ -61,15 +61,36 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval) {
 
 	return gen->last = generate(inval, left, start_bit) ^ inval ^ ~gen->last;
 }
-RCG_T_TYPE rcb_rand(rcb_gen* gen) {
-	RCG_T_TYPE tmp_cnt = gen->cnt++;
-	if(tmp_cnt == 0) ++tmp_cnt;
+RCG_T_TYPE rcb_generate_outer(rcb_gen* gen, RCG_T_TYPE tmp_cnt) {
 	return gen->val = (((gen->val = rcb_generate(gen, gen->val)) << 1) * (rcb_generate(gen, tmp_cnt) << 1)) ^ rcb_generate(gen, gen->val);
 }
-void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd) {
-	gen->val = (rnd + 10);
-	gen->last = ~(rnd - 10);
-	gen->cnt = 1;
+void rcb_seed(rcb_gen* gen, RCG_T_TYPE rnd, RCG_T_TYPE offset, char reseed) {
+	gen->cnt = 0;
 	gen->flags = 0;
+	gen->val = rnd + offset;
+	gen->last = ~(rnd - offset);
+	gen->flags = set_bit_char(gen->flags, 2, reseed);
+}
+char rcb_good(rcb_gen* gen) {
+	return gen->cnt != ~(RCG_T_TYPE)0;
+}
+RCG_T_TYPE rcb_rand(rcb_gen* gen) {
+	char gd = rcb_good(gen);
+	RCG_T_TYPE tmp_cnt = ++gen->cnt;
+	if(tmp_cnt == 0) ++tmp_cnt;
+	RCG_T_TYPE rtn = rcb_generate_outer(gen, tmp_cnt);
+
+	if(gd == 0 && rcb_reseeds(gen) == 1) {
+		RCG_T_TYPE a = rcb_generate_outer(gen, ++tmp_cnt);
+		RCG_T_TYPE b = rcb_generate_outer(gen, ++tmp_cnt);
+		rcb_seed(gen, a, b, 1);
+	}
+	return rtn;
+}
+void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd, char reseed) {
+	rcb_seed(gen, rnd, 10, reseed);
+}
+char rcb_reseeds(rcb_gen* gen) {
+	return get_bit_char(gen->flags, 2) != 0;
 }
 
