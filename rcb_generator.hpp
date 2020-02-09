@@ -122,7 +122,7 @@ private:
 		flags = 0;
 		val = rnd + offset;
 		last = ~(rnd - offset);
-		set_bit(flags, 2, reseed);
+		flags = set_bit(flags, 2, reseed);
 	}
 public:
 	rcb_generator(T rnd, bool reseed = false) {
