@@ -136,7 +136,7 @@ public:
 
 		if(!gd && reseeds()) {
 			T a = generate_outer(++tmp_cnt);
-			T b = generate_outer(++tmp_cnt) / 2;
+			T b = generate_outer(++tmp_cnt);
 			seed(a, b, true);
 		}
 		return rtn;
