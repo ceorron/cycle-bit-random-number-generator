@@ -70,7 +70,7 @@ This means that the two version will produce different values if a non default i
 
 # reseed
 
-In both the C and C++ version, at construction, you can opt to turn on optional automatic reseed.
+In both the C and C++ version, at construction, you can opt to turn on automatic reseed.
 
 If you set reseed == true on construction the maximum period is 2<sup>8N</sup>(4<sup>(8N + 2bit-length(T) + 2)</sup>). Minumum period is still 2<sup>8N</sup>.
 
