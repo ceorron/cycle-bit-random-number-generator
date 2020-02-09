@@ -62,14 +62,17 @@ Because rcb-generator operates on a bit pattern, not on a value, this makes the 
 Note that there are differences between the C and C++ versions (as of Feb 2020).
 
 The C++ version now has :
- - optional automatic reseed (off by default)
- - scalable internal count template variable
+ - scalable internal count template variable (CntN)
 
 If you are setting the scalable internal count template variable (CntN) the minimum period is 2<sup>8N</sup>. N being the number of bytes chosen. (NOTE the default uses N == sizeof(T), the same as the C code).
 
-If you set reseed == true on construction the maximum period is 2<sup>8N</sup>(4<sup>(8N + 2bit-length(T) + 2)</sup>). Minumum period is still 2<sup>8N</sup>.
+This means that the two version will produce different values if a non default internal count template variable (CntN) is used.
 
-This means that the two version will produce different values after the reseed point (if reseed enabled), and/or if a non default internal count template variable (CntN) is used.
+# reseed
+
+In both the C and C++ version, at construction, you can opt to turn on optional automatic reseed.
+
+If you set reseed == true on construction the maximum period is 2<sup>8N</sup>(4<sup>(8N + 2bit-length(T) + 2)</sup>). Minumum period is still 2<sup>8N</sup>.
 
 Please use and let me know what you think.
 
