@@ -36,7 +36,7 @@ int main() {
 int main() {
     /* seed the random number generator with the system clock */
     rcb_gen rnd;
-    rcb_init(&rnd, time(NULL));
+    rcb_init(&rnd, time(NULL), 0);
 
     /* get a random number */
     unsigned random_number = rcb_rand(&rnd);
