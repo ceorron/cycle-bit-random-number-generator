@@ -36,7 +36,7 @@ inline U set_bit(U val, unsigned pos, bool to) {
 	return (val & ~((U)1 << pos)) | ((U)to << pos);
 }
 
-template<unsigned int N>
+template<unsigned N>
 struct rcb_generator_count {
 private:
 	uint8_t dat[N];
@@ -82,9 +82,9 @@ public:
 
 //the random cycle bit generator - random number generator
 template<typename T,
-		 unsigned int CntN = sizeof(T),
-		 unsigned int bit_pos_left = ((sizeof(T) * 8) / 3) + 1,
-		 unsigned int bit_pos_start = bit_pos_left * 2>
+		 unsigned CntN = sizeof(T),
+		 unsigned bit_pos_left = ((sizeof(T) * 8) / 3) + 1,
+		 unsigned bit_pos_start = bit_pos_left * 2>
 class rcb_generator {
 private:
 	T val;
@@ -106,17 +106,17 @@ private:
 				val = shift_transform(val, i, start_bit);
 		return val;
 	}
-	T generate(T inval) {
+	T generate(T inval, unsigned BP) {
 		//set the flags left and start bit
-		bool left = (get_bit(val, bit_pos_left) ^ get_bit(flags, 1) ^ true);
-		bool start_bit = (get_bit(val, bit_pos_start) ^ get_bit(flags, 0) ^ true);
+		bool left = (get_bit(val, (bit_pos_left + BP) % (sizeof(T)*8)) ^ get_bit(flags, 1) ^ true);
+		bool start_bit = (get_bit(val, (bit_pos_start + BP) % (sizeof(T)*8))) ^ get_bit(flags, 0) ^ true);
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
 		return last = generate(inval, left, start_bit) ^ inval ^ ~last;
 	}
 	T generate_outer(T tmp_cnt) {
-		return val = (((val = generate(val)) << 1) * (generate(tmp_cnt) << 1)) ^ generate(val);
+		return val = ((generate(val, 0) << 1) * (generate(tmp_cnt, 1) << 1)) ^ generate(val, 2);
 	}
 	void seed(T rnd, T offset, bool reseed) {
 		flags = 0;
