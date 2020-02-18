@@ -52,17 +52,17 @@ RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
 			val = shift_transform(val, i, &start_bit);
 	return val;
 }
-RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval) {
+RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval, unsigned BP) {
 	//set the flags left and start bit
-	char left = get_bit_val(gen->val, RCG_BIT_POS_LEFT) ^ get_bit_char(gen->flags, 1) ^ 1;
-	char start_bit = get_bit_val(gen->val, RCG_BIT_POS_START) ^ get_bit_char(gen->flags, 0) ^ 1;
+	char left = get_bit_val(gen->val, (RCG_BIT_POS_LEFT + BP) % (sizeof(RCG_T_TYPE)*8)) ^ get_bit_char(gen->flags, 1) ^ 1;
+	char start_bit = get_bit_val(gen->val, (RCG_BIT_POS_START + BP) % (sizeof(RCG_T_TYPE)*8)) ^ get_bit_char(gen->flags, 0) ^ 1;
 	gen->flags = set_bit_char(gen->flags, 1, left);
 	gen->flags = set_bit_char(gen->flags, 0, start_bit);
 
 	return gen->last = generate(inval, left, start_bit) ^ inval ^ ~gen->last;
 }
 RCG_T_TYPE rcb_generate_outer(rcb_gen* gen, RCG_T_TYPE tmp_cnt) {
-	return gen->val = (((gen->val = rcb_generate(gen, gen->val)) << 1) * (rcb_generate(gen, tmp_cnt) << 1)) ^ rcb_generate(gen, gen->val);
+	return gen->val = ((rcb_generate(gen, gen->val, 0) << 1) * (rcb_generate(gen, tmp_cnt, 1) << 1)) ^ rcb_generate(gen, gen->val, 2);
 }
 void rcb_seed(rcb_gen* gen, RCG_T_TYPE rnd, RCG_T_TYPE offset, char reseed) {
 	gen->cnt = 0;
