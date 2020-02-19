@@ -109,7 +109,7 @@ private:
 	T generate(T inval, unsigned BP) {
 		//set the flags left and start bit
 		bool left = (get_bit(val, (bit_pos_left + BP) % (sizeof(T)*8)) ^ get_bit(flags, 1) ^ true);
-		bool start_bit = (get_bit(val, (bit_pos_start + BP) % (sizeof(T)*8))) ^ get_bit(flags, 0) ^ true);
+		bool start_bit = (get_bit(val, (bit_pos_start + BP) % (sizeof(T)*8)) ^ get_bit(flags, 0) ^ true);
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
