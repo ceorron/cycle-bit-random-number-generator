@@ -57,7 +57,7 @@ rcb-generator is very fast; slower than many shift/modulo generators but about t
 
 Because rcb-generator operates on a bit pattern, not on a value, this makes the generator highly scalable and reusable, unlike other shift/modulo generators/MT and random number generators in general.
 
-# C++ Differences
+# C++ differences
 
 Note that there are differences between the C and C++ versions (as of Feb 2020).
 
