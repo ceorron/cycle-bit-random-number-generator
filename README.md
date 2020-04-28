@@ -53,7 +53,7 @@ To change the bit size of the data stored in and returned from the C code for rc
 
 rcb-generator provides fast, scalable, random number generation with a very good period (2<sup>bit-length(T)</sup> minimum (when using C code or default C++, see C++ differences, below, for details)).
 
-rcb-generator is very fast; slower than many shift/modulo generators but about twice as fast (or more) than Mersenne Twister in my tests.
+rcb-generator is fast; slower than many shift/modulo/xorshift generators but faster than more complex pseudo random number generators.
 
 Because rcb-generator operates on a bit pattern, not on a value, this makes the generator highly scalable and reusable, unlike other shift/modulo generators/MT and random number generators in general.
 
