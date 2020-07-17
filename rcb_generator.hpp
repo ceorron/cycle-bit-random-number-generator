@@ -90,7 +90,7 @@ private:
 	T val;
 	T last;
 	rcb_generator_count<CntN> cnt;
-	//only first two flags used (1 << 1) is "left" (1 << 0) is start
+	//only first three flags used (1 << 1) is "left" (1 << 0) is start
 	char flags;
 	inline static T shift_transform(T val, int i, bool& start_bit) {
         val ^= (T)start_bit << i;
@@ -141,7 +141,7 @@ public:
 		}
 		return rtn;
 	}
-	bool good() {
+	bool good() const {
 		return cnt.good();
 	}
 	bool reseeds() const {
