@@ -43,8 +43,8 @@ typedef struct {
 
 void rcb_init(rcb_gen* gen, RCG_T_TYPE rnd, char reseed);
 RCG_T_TYPE rcb_rand(rcb_gen* gen);
-char rcb_good(rcb_gen* gen);
-char rcb_reseeds(rcb_gen* gen);
+char rcb_good(const rcb_gen* gen);
+char rcb_reseeds(const rcb_gen* gen);
 
 #ifdef __cplusplus
 }
