@@ -74,6 +74,55 @@ In both the C and C++ version, at construction, you can opt to turn on automatic
 
 If you set reseed == true on construction the maximum period is 2<sup>8N</sup>(4<sup>(8N + 2bit-length(T) + 2)</sup>). Minumum period is still 2<sup>8N</sup>.
 
+# rcb_fast_generator
+
+As of August 2020 a new random number generator was added building off of the original ideas in the first generator, however this generator would specifically aim to be fast, as fast as the fastest xorshift generators but still giving excellent statistical correctness while incorporating ideas from the original rcb_generator.
+
+This makes rcb_fast_generator, potentially, the best random number generator to date. Giving the speed of an xorshift generator with better statistical qualities and a long period of at minimum 2<sup>bit-length(T)</sup>.
+
+MIT Licence - See Source/License file
+
+```C++
+#include <iostream>
+#include <ctime>
+
+#include "rcb_fast_generator.hpp"
+
+using namespace std;
+
+int main() {
+    //seed the random number generator with the system clock
+    rcbg::rcb_fast_generator<unsigned> rnd(time(NULL));
+
+    //get a random number
+    unsigned random_number = rnd.rand();
+
+    //print it
+    cout << "random number generated : " << random_number << endl;
+    return 0;
+}
+```
+
+```C
+#include <stdio.h>
+#include <time.h>
+
+#include "rcb_fast_generator.h"
+
+int main() {
+    /* seed the random number generator with the system clock */
+    rcb_fast_gen rnd;
+    rcb_fast_init(&rnd, time(NULL), 0);
+
+    /* get a random number */
+    unsigned random_number = rcb_fast_rand(&rnd);
+
+    /* print it */
+    printf("random number generated : %u", random_number);
+    return 0;
+}
+```
+
 Please use and let me know what you think.
 
 Thanks
