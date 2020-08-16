@@ -31,7 +31,6 @@ extern "C" {
 #endif
 
 #define RCG_FAST_T_TYPE				unsigned
-#define RCG_FAST_BIT_COUNT_LEFT		((sizeof(RCG_FAST_T_TYPE)*8)/4)
 
 typedef struct {
 	RCG_FAST_T_TYPE val;
