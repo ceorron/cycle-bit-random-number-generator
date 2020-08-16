@@ -50,7 +50,7 @@ RCG_FAST_T_TYPE rcb_fast_get_one_bits(unsigned count) {
 
 RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
 	//take the lower count bits
-	RCG_FAST_T_TYPE tmp = val & rcb_fast_get_one_bits(RCG_FAST_BIT_COUNT_LEFT);
+	RCG_FAST_T_TYPE tmp = val + (val & rcb_fast_get_one_bits((sizeof(RCG_FAST_T_TYPE)*8)/2 - 1) << 1);
 
 	//circular shift by one to the right
 	val ^= rcb_fast_circular_shift_right(val, (RCG_FAST_T_TYPE)1);
