@@ -50,7 +50,7 @@ RCG_FAST_T_TYPE rcb_fast_get_one_bits(unsigned count) {
 
 RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
 	//take the lower count bits
-	RCG_FAST_T_TYPE tmp = val + (val & rcb_fast_get_one_bits((sizeof(RCG_FAST_T_TYPE)*8)/2 - 1) << 1);
+	RCG_FAST_T_TYPE tmp = ((val + ((val & rcb_fast_get_one_bits((sizeof(RCG_FAST_T_TYPE)*8)/2 - 1)) << 1)) % ((sizeof(RCG_FAST_T_TYPE)*8) - 1)) | 1;
 
 	//circular shift by one to the right
 	val ^= rcb_fast_circular_shift_right(val, (RCG_FAST_T_TYPE)1);
@@ -59,7 +59,7 @@ RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
 	val ^= val << sizeof(RCG_FAST_T_TYPE)*8 / 2;
 
 	//circular shift by that many bits
-	return val ^ rcb_fast_circular_shift_right(val, tmp);
+	return ~(val ^ rcb_fast_circular_shift_right(val, tmp));
 }
 RCG_FAST_T_TYPE rcb_fast_generate_outer(rcb_fast_gen* gen, RCG_FAST_T_TYPE tmp_cnt) {
 	return gen->val = rcb_fast_generate(gen->val) ^ rcb_fast_generate(tmp_cnt);
