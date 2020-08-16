@@ -60,7 +60,7 @@ private:
 
 	T generate(T val) {
 		//take the lower count bits
-		T tmp = val + (val & get_one_bits<T>((sizeof(T)*8)/2 - 1) << 1);
+		T tmp = ((val + ((val & get_one_bits<T>((sizeof(T)*8)/2 - 1)) << 1)) % ((sizeof(T)*8) - 1)) | 1;
 
 		//circular shift by one to the right
 		val ^= circular_shift_right(val, (T)1);
@@ -69,7 +69,7 @@ private:
 		val ^= val << sizeof(T)*8 / 2;
 
 		//circular shift by that many bits
-		return val ^ circular_shift_right(val, tmp);
+		return ~(val ^ circular_shift_right(val, tmp));
 	}
 	T generate_outer(T tmp_cnt) {
 		return val = generate(val) ^ generate(tmp_cnt);
