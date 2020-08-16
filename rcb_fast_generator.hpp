@@ -50,8 +50,7 @@ T get_one_bits(unsigned count) {
 
 //the random cycle bit generator - random number generator
 template<typename T,
-		 unsigned CntN = sizeof(T),
-		 unsigned bit_count_left = (sizeof(T)*8)/4>
+		 unsigned CntN = sizeof(T)>
 class rcb_fast_generator {
 private:
 	T val;
@@ -61,7 +60,7 @@ private:
 
 	T generate(T val) {
 		//take the lower count bits
-		T tmp = val & get_one_bits<T>(bit_count_left);
+		T tmp = val + (val & get_one_bits<T>((sizeof(T)*8)/2 - 1) << 1);
 
 		//circular shift by one to the right
 		val ^= circular_shift_right(val, (T)1);
