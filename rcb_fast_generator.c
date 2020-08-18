@@ -59,10 +59,11 @@ RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
 	val ^= val << sizeof(RCG_FAST_T_TYPE)*8 / 2;
 
 	//circular shift by that many bits
-	return ~(val ^ rcb_fast_circular_shift_right(val, tmp));
+	return val ^ rcb_fast_circular_shift_right(val, tmp);
 }
 RCG_FAST_T_TYPE rcb_fast_generate_outer(rcb_fast_gen* gen, RCG_FAST_T_TYPE tmp_cnt) {
-	return gen->val = rcb_fast_generate(gen->val) ^ rcb_fast_generate(tmp_cnt);
+	RCG_FAST_T_TYPE val2 = ~gen->val * rcb_fast_generate(~gen->val);
+	return gen->val = rcb_fast_generate(gen->val) ^ val2 ^ rcb_fast_generate(tmp_cnt);
 }
 void rcb_fast_seed(rcb_fast_gen* gen, RCG_FAST_T_TYPE rnd, RCG_FAST_T_TYPE offset, char reseed) {
 	gen->cnt = 0;
