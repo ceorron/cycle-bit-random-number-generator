@@ -62,7 +62,7 @@ RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
 	return val ^ rcb_fast_circular_shift_right(val, tmp);
 }
 RCG_FAST_T_TYPE rcb_fast_generate_outer(rcb_fast_gen* gen, RCG_FAST_T_TYPE tmp_cnt) {
-	RCG_FAST_T_TYPE val2 = ~gen->val * rcb_fast_generate(~gen->val);
+	RCG_FAST_T_TYPE val2 = (~gen->val << 1) * (rcb_fast_generate(~gen->val) << 1);
 	return gen->val = rcb_fast_generate(gen->val) ^ val2 ^ rcb_fast_generate(tmp_cnt);
 }
 void rcb_fast_seed(rcb_fast_gen* gen, RCG_FAST_T_TYPE rnd, RCG_FAST_T_TYPE offset, char reseed) {
