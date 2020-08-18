@@ -69,10 +69,11 @@ private:
 		val ^= val << sizeof(T)*8 / 2;
 
 		//circular shift by that many bits
-		return ~(val ^ circular_shift_right(val, tmp));
+		return val ^ circular_shift_right(val, tmp);
 	}
 	T generate_outer(T tmp_cnt) {
-		return val = generate(val) ^ generate(tmp_cnt);
+		T val2 = ~val * generate(~val);
+		return val = generate(val) ^ val2 ^ generate(tmp_cnt);
 	}
 	void seed(T rnd, T offset, bool reseed) {
 		flags = 0;
