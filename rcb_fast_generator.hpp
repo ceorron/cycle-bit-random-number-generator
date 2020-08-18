@@ -72,7 +72,7 @@ private:
 		return val ^ circular_shift_right(val, tmp);
 	}
 	T generate_outer(T tmp_cnt) {
-		T val2 = ~val * generate(~val);
+		T val2 = (~val << 1) * (generate(~val) << 1);
 		return val = generate(val) ^ val2 ^ generate(tmp_cnt);
 	}
 	void seed(T rnd, T offset, bool reseed) {
