@@ -73,7 +73,7 @@ private:
 	}
 	T generate_outer(T tmp_cnt) {
 		T val2 = (~val << 1) * (generate(~val) << 1);
-		return val = generate(val) ^ val2 ^ generate(~generate(tmp_cnt));
+		return val = generate(val) ^ val2 ^ generate(val2) ^ generate(~generate(tmp_cnt));
 	}
 	void seed(T rnd, T offset, bool reseed) {
 		flags = 0;
