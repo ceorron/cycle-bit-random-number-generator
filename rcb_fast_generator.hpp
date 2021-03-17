@@ -42,7 +42,6 @@ T circular_shift_left(T val, T count) {
 template<typename T>
 T get_one_bits(unsigned count) {
 	//make a string of one bits
-	T rtn = -1;
     return ~((T)-1 << count);
 }
 
