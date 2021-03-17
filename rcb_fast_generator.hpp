@@ -42,10 +42,8 @@ T circular_shift_left(T val, T count) {
 template<typename T>
 T get_one_bits(unsigned count) {
 	//make a string of one bits
-	T rtn = 0;
-	while(count--)
-		rtn = (rtn << 1) | 1;
-	return rtn;
+	T rtn = -1;
+    return ~((T)-1 << count);
 }
 
 //the random cycle bit generator - random number generator
