@@ -42,10 +42,7 @@ RCG_FAST_T_TYPE rcb_fast_circular_shift_left(RCG_FAST_T_TYPE val, RCG_FAST_T_TYP
 }
 RCG_FAST_T_TYPE rcb_fast_get_one_bits(unsigned count) {
 	//make a string of one bits
-	RCG_FAST_T_TYPE rtn = 0;
-	while(count--)
-		rtn = (rtn << 1) | 1;
-	return rtn;
+	return ~((RCG_FAST_T_TYPE)-1 << count);
 }
 
 RCG_FAST_T_TYPE rcb_fast_generate(RCG_FAST_T_TYPE val) {
