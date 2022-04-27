@@ -55,7 +55,7 @@ private:
 	//only first one flags used (0 is whether reseed enabled)
 	char flags;
 
-	T generate(T val) {
+	static T generate(T val) {
 		//take the lower count bits
 		T tmp = ((val + ((val & get_one_bits<T>((sizeof(T)*8)/2 - 1)) << 1)) % ((sizeof(T)*8) - 1)) | 1;
 
