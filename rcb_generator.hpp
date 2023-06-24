@@ -92,6 +92,7 @@ private:
 	rcb_generator_count<CntN> cnt;
 	//only first three flags used (1 << 1) is "left" (1 << 0) is start
 	char flags;
+    /*
 	inline static T shift_transform(T val, int i, bool& start_bit) {
         val ^= (T)start_bit << i;
 		start_bit ^= get_bit(val, i);
@@ -105,6 +106,24 @@ private:
 			for(int i = (sizeof(T) * 8) - 1; i > -1; --i)
 				val = shift_transform(val, i, start_bit);
 		return val;
+	}
+    */
+	static T generate(T val, bool left, bool start_bit) {
+		T rtn = 0;
+		//bool last_bit = false;
+		if(left) {
+			//get all of the positions where we see a bit change going left
+			//last_bit = (val & (1 << (sizeof(T) * 8 - 1))) != 0;
+			T lval = (val << 1) | (T)start_bit;
+			rtn = lval ^ val;
+		} else {
+			//get all of the positions where we see a bit change going right
+			//last_bit = (val & 1) != 0;
+			T rval = (val >> 1) | ((T)start_bit << (sizeof(T) * 8 - 1));
+			rtn = rval ^ val;
+		}
+		//start_bit = last_bit;
+		return rtn;
 	}
 	T generate(T inval, unsigned BP) {
 		//set the flags left and start bit
