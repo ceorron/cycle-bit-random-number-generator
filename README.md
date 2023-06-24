@@ -80,6 +80,10 @@ As of August 2020 a new random number generator was added building off of the or
 
 This makes rcb_fast_generator, potentially, the best random number generator to date. Giving the speed of an xorshift generator with better statistical qualities and a long period of at minimum 2<sup>bit-length(T)</sup>.
 
+# rcb_generator catches up
+
+Optimisations to rcb_generator, in June 2023, mean that it now rivals rcb_fast_generator for speed. The output is still exactly the same, meaning the two are extremely fast while producing very high-quality random numbers.
+
 MIT Licence - See Source/License file
 
 ```C++
