@@ -109,21 +109,18 @@ private:
 	}
     */
 	static T generate(T val, bool left, bool start_bit) {
-		T rtn = 0;
+        T tmp = 0;
 		//bool last_bit = false;
-		if(left) {
+		if(left)
 			//get all of the positions where we see a bit change going left
 			//last_bit = (val & (1 << (sizeof(T) * 8 - 1))) != 0;
-			T lval = (val << 1) | (T)start_bit;
-			rtn = lval ^ val;
-		} else {
+			tmp = (val << 1) | (T)start_bit;
+		else
 			//get all of the positions where we see a bit change going right
 			//last_bit = (val & 1) != 0;
-			T rval = (val >> 1) | ((T)start_bit << (sizeof(T) * 8 - 1));
-			rtn = rval ^ val;
-		}
+			tmp = (val >> 1) | ((T)start_bit << (sizeof(T) * 8 - 1));
 		//start_bit = last_bit;
-		return rtn;
+		return tmp ^ val;
 	}
 	T generate(T inval, unsigned BP) {
 		//set the flags left and start bit
