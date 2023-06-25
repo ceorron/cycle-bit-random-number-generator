@@ -55,21 +55,18 @@ RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
 }
 */
 RCG_T_TYPE generate(RCG_T_TYPE val, char left, char start_bit) {
-	RCG_T_TYPE rtn = 0;
+	RCG_T_TYPE tmp = 0;
 	//bool last_bit = false;
-	if(left) {
+	if(left)
 		//get all of the positions where we see a bit change going left
 		//last_bit = (val & (1 << (sizeof(RCG_T_TYPE) * 8 - 1))) != 0;
-		RCG_T_TYPE lval = (val << 1) | (RCG_T_TYPE)start_bit;
-		rtn = lval ^ val;
-	} else {
+		tmp = (val << 1) | (RCG_T_TYPE)start_bit;
+	else
 		//get all of the positions where we see a bit change going right
 		//last_bit = (val & 1) != 0;
-		RCG_T_TYPE rval = (val >> 1) | ((RCG_T_TYPE)start_bit << (sizeof(RCG_T_TYPE) * 8 - 1));
-		rtn = rval ^ val;
-	}
+		tmp = (val >> 1) | ((RCG_T_TYPE)start_bit << (sizeof(RCG_T_TYPE) * 8 - 1));
 	//start_bit = last_bit;
-	return rtn;
+	return tmp ^ val;
 }
 RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval, unsigned BP) {
 	//set the flags left and start bit
