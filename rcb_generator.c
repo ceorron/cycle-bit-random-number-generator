@@ -33,7 +33,7 @@ inline char set_bit_char(char val, unsigned pos, char to) {
 	return (val & ~((char)1 << pos)) | ((char)to << pos);
 }
 inline char get_bit_val(RCG_T_TYPE val, unsigned pos) {
-	return (val & ((RCG_T_TYPE)1 << pos)) != 0;
+	return (val >> pos) & 1;
 }
 inline RCG_T_TYPE set_bit_val(RCG_T_TYPE val, unsigned pos, char to) {
 	return (val & ~((RCG_T_TYPE)1 << pos)) | ((RCG_T_TYPE)to << pos);
