@@ -27,7 +27,7 @@
 #include "rcb_fast_generator.h"
 
 inline char get_bit_char(char val, unsigned pos) {
-	return (val & ((char)1 << pos)) != 0;
+	return (val >> pos) & 1;
 }
 inline char set_bit_char(char val, unsigned pos, char to) {
 	return (val & ~((char)1 << pos)) | ((char)to << pos);
