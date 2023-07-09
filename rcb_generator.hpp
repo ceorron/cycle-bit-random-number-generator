@@ -29,7 +29,7 @@ namespace rcbg {
 
 template<typename U>
 inline bool get_bit(U val, unsigned pos) {
-	return val & ((U)1 << pos);
+	return (val >> pos) & 1;
 }
 template<typename U>
 inline U set_bit(U val, unsigned pos, bool to) {
