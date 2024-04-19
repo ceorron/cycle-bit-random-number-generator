@@ -75,7 +75,7 @@ RCG_T_TYPE rcb_generate(rcb_gen* gen, RCG_T_TYPE inval, unsigned BP) {
 	gen->flags = set_bit_char(gen->flags, 1, left);
 	gen->flags = set_bit_char(gen->flags, 0, start_bit);
 
-	return gen->last = generate(inval, left, start_bit) ^ inval ^ ~gen->last;
+	return gen->last = generate(inval, left, start_bit) ^ ~gen->last;
 }
 RCG_T_TYPE rcb_generate_outer(rcb_gen* gen, RCG_T_TYPE tmp_cnt) {
 	return gen->val = ((rcb_generate(gen, gen->val, 0) << 1) * (rcb_generate(gen, tmp_cnt, 1) << 1)) ^ rcb_generate(gen, gen->val, 2);
