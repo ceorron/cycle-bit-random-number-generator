@@ -129,7 +129,7 @@ private:
 		flags = set_bit(flags, 1, left);
 		flags = set_bit(flags, 0, start_bit);
 
-		return last = generate(inval, left, start_bit) ^ inval ^ ~last;
+		return last = generate(inval, left, start_bit) ^ ~last;
 	}
 	T generate_outer(T tmp_cnt) {
 		return val = ((generate(val, 0) << 1) * (generate(tmp_cnt, 1) << 1)) ^ generate(val, 2);
