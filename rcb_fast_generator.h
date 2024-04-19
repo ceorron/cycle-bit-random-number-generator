@@ -2,7 +2,7 @@
  |																					|
  | rcb_fast_generator.h 															|
  |																					|
- | Copyright (c) 2020-2023 Richard Cookman											|
+ | Copyright (c) 2020-2024 Richard Cookman											|
  |																					|
  | Permission is hereby granted, free of charge, to any person obtaining a copy		|
  | of this software and associated documentation files (the "Software"), to deal	|
