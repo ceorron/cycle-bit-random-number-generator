@@ -51,7 +51,7 @@ To change the bit size of the data stored in and returned from the C code for rc
 
 # more on rcb-generator design
 
-rcb-generator provides fast, scalable, random number generation with a very good period. 2<sup>bit-length(T)</sup> minimum, when using C code or default C++. (see C++ differences, below, for details).
+rcb-generator provides fast, scalable, random number generation with a very good period. 2<sup>8N</sup> minimum, when using C code or default C++. (see C++ differences, below, for details).
 
 rcb-generator is fast; slower than many shift/modulo/xorshift generators but faster than more complex pseudo random number generators.
 
@@ -78,7 +78,7 @@ If you set reseed == true on construction the maximum period is 2<sup>2bit-lengt
 
 As of August 2020 a new random number generator was added building off of the original ideas in the first generator, however this generator would specifically aim to be fast, as fast as the fastest xorshift generators but still giving excellent statistical correctness while incorporating ideas from the original rcb_generator.
 
-This makes rcb_fast_generator, potentially, the best random number generator to date. Giving the speed of an xorshift generator with better statistical qualities and a long period of at minimum 2<sup>bit-length(T)</sup>.
+This makes rcb_fast_generator, potentially, the best random number generator to date. Giving the speed of an xorshift generator with better statistical qualities and a long period of at minimum 2<sup8N</sup>.
 
 # rcb_generator catches up
 
